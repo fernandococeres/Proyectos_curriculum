@@ -1,4 +1,0 @@
-tkcalendar>=1.6.1
-openpyxl>=3.0.0
-
-
