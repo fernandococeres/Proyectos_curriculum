@@ -1,8 +1,38 @@
-#dbConn.py
+"""
+Módulo de conexión a la base de datos SQLite para el Sistema de Gestión Escolar
+
+DESCRIPCIÓN:
+Proporciona una interfaz simplificada para interactuar con SQLite.
+Maneja conexiones, creación de tablas y ejecución de comandos SQL.
+
+RESPONSABILIDADES:
+- Establecer y cerrar conexiones con la BD
+- Crear tablas si no existen
+- Ejecutar comandos SQL (SELECT, INSERT, UPDATE, DELETE)
+- Commit automático de cambios
+- Manejo de errores y excepciones
+
+MÉTODOS PRINCIPALES:
+- __init__(dbname): Inicializa con nombre de BD
+- createTable(nombre, campos): Crea tabla
+- execute(comando, parámetros): Ejecuta SQL y retorna resultados
+
+SEGURIDAD:
+- Usa parametrización (?) para prevenir SQL injection
+- Maneja excepciones para evitar crashes
+- Conexiones se abren/cierran para cada operación
+
+NOTA IMPORTANTE:
+Esta clase es el único punto de acceso a la base de datos desde los controladores.
+Todas las operaciones de BD deben pasar por esta clase.
+"""
 import sqlite3
 
 class dbConn():
-    '''dbConn Clase para la conexión con la base de datos.
+    '''dbConn Clase para la conexión con la base de datos SQLite.
+    
+    Proporciona métodos para crear tablas y ejecutar comandos SQL de forma segura.
+    Maneja automáticamente apertura, ejecución y cierre de conexiones.
     '''
     def __init__(self, dbname: str):
         '''__init__ Constructor de la clase.

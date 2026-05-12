@@ -1,37 +1,54 @@
+"""
+SISTEMA DE GESTIÓN ESCOLAR
+=========================
+
+Aplicación desktop para la gestión integral de estudiantes y docentes en 
+instituciones educativas.
+
+ARQUITECTURA: Patrón MVC (Model-View-Controller)
+- Models: Definen estructura de datos y operaciones con la base de datos (models/)
+- Views: Interfaces gráficas de usuario con Tkinter (views/)
+- Controllers: Lógica de negocio y control de flujo de datos (controllers/)
+
+ESTRUCTURA DEL PROYECTO:
+- main.py: Punto de entrada de la aplicación
+- config.py: Configuración centralizada (BD, ventanas, estilos)
+- views/: Interfaces gráficas (main_view.py, views.py, admin_views.py)
+- controllers/: Lógica de negocio (controlers.py, admin.py)
+- models/: Definiciones de datos (models.py, dbConn.py, validaciones.py)
+
+FLUJO PRINCIPAL:
+1. main.py inicializa la ventana Tkinter
+2. VentanaPrincipal carga la interfaz principal y menú
+3. Usuarios interactúan con vistas (views)
+4. Vistas llaman a controladores (controllers)
+5. Controladores acceden a base de datos a través de models
+6. Validaciones se ejecutan en cada operación (models/validaciones.py)
+
+BASE DE DATOS:
+- SQLite (escuela.db)
+- Gestión a través de models/dbConn.py
+- Tablas: alumnos, profesores
+
+FUNCIONALIDADES:
+✓ CRUD Alumnos y Profesores
+✓ Búsqueda por DNI
+✓ Reportes y estadísticas
+✓ Exportación a CSV/Excel
+✓ Validación de datos en tiempo real
+
+
+"""
+
 import tkinter as tk
-from tkinter import Menu, messagebox
-from centrar_ventana import centrar_ventana
+from views.main_view import VentanaPrincipal
 
-# --- funciones que abren tus módulos ---
-def abrir_alumnos():
-    messagebox.showinfo("Módulo Alumnos", "Abrir formulario de alumnos")
-
-def abrir_profesores():
-    messagebox.showinfo("Módulo Profesores", "Abrir formulario de profesores")
-
-def salir():
-    if messagebox.askyesno("Salir", "¿Desea salir del sistema?"):
-        root.destroy()
-
-# --- ventana principal ---
-root = tk.Tk()
-root.title("Sistema de Gestión - IE4")
-centrar_ventana(root, 800, 600)
-
-# --- menú principal ---
-menu_bar = Menu(root)
-root.config(menu=menu_bar)
-
-# Menú de Tablas
-menu_tablas = Menu(menu_bar, tearoff=0)
-menu_tablas.add_command(label="Alumnos", command=abrir_alumnos)
-menu_tablas.add_command(label="Profesores", command=abrir_profesores)
-menu_tablas.add_separator()
-menu_tablas.add_command(label="Salir", command=salir)
-menu_bar.add_cascade(label="Tablas", menu=menu_tablas)
-
-# --- contenido de la ventana principal ---
-label_bienvenida = tk.Label(root, text="Bienvenido al Sistema de Gestión", font=("Arial", 16))
-label_bienvenida.pack(pady=50)
-
-root.mainloop()
+if __name__ == "__main__":
+    # Crear ventana raíz de Tkinter
+    root = tk.Tk()
+    
+    # Inicializar la aplicación principal
+    app = VentanaPrincipal(root)
+    
+    # Ejecutar el loop principal de eventos
+    root.mainloop()

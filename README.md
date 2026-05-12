@@ -1,52 +1,222 @@
-# alumnos
+# Sistema de Gestión Escolar
 
+Sistema integral de gestión de estudiantes y docentes para instituciones educativas. Aplicación de escritorio desarrollada en Python con interfaz gráfica Tkinter y base de datos SQLite.
 
+---
 
-## Getting started
+## 📋 Tabla de Contenidos
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+1. [Características](#características)
+2. [Requisitos](#requisitos-previos)
+3. [Instalación](#instalación)
+4. [Uso](#uso)
+5. [Arquitectura](#arquitectura)
+6. [Documentación para Desarrolladores](#documentación-para-desarrolladores)
+7. [Estructura de Carpetas](#estructura-de-carpetas)
+8. [Base de Datos](#base-de-datos)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
+## ✨ Características
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Gestión de Alumnos
+- ✅ **CRUD Completo**: Crear, leer, actualizar, eliminar estudiantes
+- ✅ **Búsqueda por DNI**: Búsqueda rápida y única de estudiantes
+- ✅ **Campos Validados**: 
+  - Nombre, Apellido (letras solo)
+  - Email (formato válido)
+  - Teléfono (10+ dígitos)
+  - DNI (único, números)
+  - Grado: 1ro, 2do, 3ro, 4to, 5to, 6to
+  - Asignatura: Matemáticas, Lengua, Ciencias, Historia, Educación Física, Inglés
+  - Fecha Nacimiento (YYYY-MM-DD)
+
+### Gestión de Profesores
+- ✅ **CRUD Completo**: Crear, leer, actualizar, eliminar docentes
+- ✅ **Campos Validados**: Nombre, Apellido, Email, Teléfono, Especialidad, Documento
+- ✅ **Búsqueda**: Por documento/especialidad
+
+### Panel Administrativo
+- 📊 **Estadísticas**: Totales, distribuciones por grado/asignatura/especialidad
+- 📈 **Reportes**: Análisis detallado de datos
+- 📥 **Exportación**: CSV y Excel (.xlsx)
+
+### Seguridad y Validación
+- ✅ Validación en tiempo real
+- ✅ Prevención de duplicados (DNI/Documento únicos)
+- ✅ Mensajes de error claros en español
+- ✅ Confirmación antes de eliminar
+
+---
+
+## 📦 Requisitos Previos
+
+- Python 3.7 o superior
+- tkinter (incluido con Python)
+- tkcalendar (opcional para funcionalidades futuras)
+
+## Instalación
+
+1. **Clonar o descargar el proyecto**
+   ```bash
+   git clone <repositorio>
+   cd coceres_fernando_ie4c
+   ```
+
+2. **Instalar dependencias**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Uso
+
+1. **Ejecutar la aplicación**
+   ```bash
+   python main.py
+   ```
+
+2. **Desde el menú principal**
+   - Clic en "Tablas" → "Alumnos" para gestionar alumnos
+   - Clic en "Tablas" → "Profesores" para gestionar profesores
+   - Clic en "Administración" → "Administración de Alumnos" para ver panel admin de alumnos
+   - Clic en "Administración" → "Administración de Profesores" para ver panel admin de profesores
+
+3. **Operaciones de Gestión disponibles**
+   - **Nuevo**: Crear un nuevo registro
+   - **Editar**: Modificar un registro seleccionado
+   - **Eliminar**: Borrar un registro (requiere confirmación)
+   - **Actualizar**: Recargar la tabla
+   - **Buscar**: Filtrar por nombre
+
+4. **Panel de Administración - Pestaña Estadísticas**
+   - Ver total de registros
+   - Desglose por grado (alumnos) o especialidad (profesores)
+   - Análisis detallado de distribución
+
+5. **Panel de Administración - Pestaña Reportes**
+   - Generar reportes especiales
+   - Buscar registros sin email/documento
+   - Ver registros recientes
+   - Filtrar por criterios específicos
+
+6. **Panel de Administración - Pestaña Exportación**
+   - Descargar datos en Excel (con estilos y estadísticas)
+   - Descargar datos en CSV (para importar a otras aplicaciones)
+
+## Estructura del Proyecto
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/carlosmurua/alumnos.git
-git branch -M main
-git push -uf origin main
+coceres_fernando_ie4c/
+├── main.py                    # Punto de entrada de la aplicación
+├── centrar_ventana.py         # Función auxiliar para centrar ventanas
+├── requirements.txt           # Dependencias del proyecto
+├── README.md                  # Este archivo
+├── models/
+│   └── models.py             # Clases de datos (Alumno, Profesor)
+├── database/
+│   └── dbConn.py            # Conexión y operaciones con SQLite
+├── controlers/
+│   └── controlers.py         # Lógica de negocio (CRUD)
+└── views/
+    └── views.py             # Interfaces gráficas Tkinter
 ```
 
-## Integrate with your tools
+## Módulos Principales
 
-- [ ] [Set up project integrations](https://gitlab.com/carlosmurua/alumnos/-/settings/integrations)
+### `models.py`
+Define las clases de datos:
+- `Alumno`: Representa a un estudiante
+- `Profesor`: Representa a un docente
 
-## Collaborate with your team
+### `dbConn.py`
+Maneja la conexión con SQLite:
+- Crear tablas
+- Ejecutar consultas
+- Métodos CRUD genéricos
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### `controlers.py`
+Contiene la lógica de negocio:
+- `ControladorAlumnos`: Operaciones CRUD para alumnos
+- `ControladorProfesores`: Operaciones CRUD para profesores
 
-## Test and Deploy
+### `views.py`
+Interfaces gráficas Tkinter:
+- `VentanaAlumnos`: Ventana de gestión de alumnos
+- `VentanaProfesores`: Ventana de gestión de profesores
 
-Use the built-in continuous integration in GitLab.
+### `admin.py`
+Sistema administrativo avanzado:
+- `AdminAlumnos`: Estadísticas, reportes y exportación de alumnos
+- `AdminProfesores`: Estadísticas, reportes y exportación de profesores
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### `admin_views.py`
+Interfaces administrativas:
+- `AdminAlumnosView`: Panel de administración de alumnos con 3 pestañas
+- `AdminProfesoresView`: Panel de administración de profesores con 3 pestañas
+- Pestañas: Estadísticas, Reportes, Exportación
 
-***
+## Base de Datos
 
-# Editing this README
+La base de datos se crea automáticamente la primera vez que se ejecuta la aplicación.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Tabla: alumnos
+```sql
+CREATE TABLE alumnos (
+    id_alumno INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    email TEXT,
+    telefono TEXT,
+    fecha_nacimiento TEXT,
+    grado TEXT,
+    seccion TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+### Tabla: profesores
+```sql
+CREATE TABLE profesores (
+    id_profesor INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    email TEXT,
+    telefono TEXT,
+    especialidad TEXT,
+    documento TEXT UNIQUE,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
+
+## Funcionalidades Futuras
+
+- [ ] Generación de reportes (PDF, Excel)
+- [ ] Sistema de calificaciones
+- [ ] Horarios de clases
+- [ ] Historial de asistencia
+- [ ] Exportación/Importación de datos
+- [ ] Autenticación de usuarios
+- [ ] Interfaz mejorada
+
+## Notas de Desarrollo
+
+- La base de datos se almacena en `escuela.db`
+- Los imports asumen que se ejecuta desde el directorio raíz
+- Se usa tkinter nativo sin frameworks adicionales para la UI
+
+## Autor
+
+Fernando Cóceres
+Instituto Educativo IE4
+
+## Licencia
+
+Este proyecto es de uso educativo.
+
+---
+
+Para reportar errores o sugerencias, contáctate con el desarrollador.
+
 
 ## Suggestions for a good README
 Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
